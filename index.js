@@ -10,25 +10,26 @@ import fs from "fs";
 
 inquirer
   .prompt([
-    /* Pass your questions in here */
-    {message: "Enter your URL", name  : "URL"}
+    /* We Pass the question here */
+    { message: "Enter your URL", name: "URL" },
   ])
   .then((answers) => {
-    // Use user feedback for... whatever!!
+    // We store the user feedback inside url constant
     const url = answers.URL;
-    var qr_png = qr.image(url);
-    qr_png.pipe(fs.createWriteStream('input3.png'));
+    var qr_png = qr.image(url); //we pass the url an an argument to the .image() function which comes from qr
+    qr_png.pipe(fs.createWriteStream("new-image.png")); //we use the Node fs package to pipe the new .png file into the file system
 
-    fs.writeFile('input.txt', url, 'utf8', (err) => {
+    fs.writeFile("text-file.txt", url, "utf8", (err) => {
+      //we use the fs package to write a new .txt file into the file system
       if (err) throw err;
-      console.log('The file has been saved!', answers.URL);
+      console.log("The file has been saved!", answers.URL);
     });
-
   })
   .catch((error) => {
     if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
+      // Means if it was a TTY (teletypewriter) error
+      console.log("Prompt could not be rendered in the current terminal.");
     } else {
-      // Something else went wrong
+      console.log("Something else went wrong:", error);
     }
   });
