@@ -30,6 +30,6 @@ inquirer
       // Means if it was a TTY (teletypewriter) error
       console.log("Prompt could not be rendered in the current terminal.");
     } else {
-      console.log("Something else went wrong:", error);
+      console.log("Something else went wrong:", error); //we log the error if it wasn't a TTY Error
     }
   });
